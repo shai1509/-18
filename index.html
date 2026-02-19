@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#2d3436">
+<title>✨ הדר - חוגגת 18</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --rose-gold: #b76e79;
+  --champagne: #f7e7ce;
+  --dark-slate: #1e1e24;
+  --light-slate: #2d3436;
+  --text-light: #fdfbfb;
+}
+
+body {
+  font-family: 'Heebo', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at top right, var(--light-slate), var(--dark-slate) 80%);
+  color: var(--text-light);
+}
+
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--champagne);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  50%  { opacity: 0.6; }
+  100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.welcome-top {
+  font-size: 24px;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  color: var(--champagne);
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.number-18 {
+  font-size: 140px;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--champagne), var(--rose-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 10px 20px rgba(183, 110, 121, 0.3));
+  margin-bottom: 10px;
+}
+
+.welcome-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.welcome-sub {
+  color: rgba(253, 251, 251, 0.7);
+  font-size: 16px;
+  text-align: center;
+  font-weight: 300;
+  max-width: 280px;
+  line-height: 1.6;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--rose-gold);
+  margin: 30px auto;
+  border-radius: 2px;
+}
+
+.scan-btn {
+  margin-top: 10px;
+  background: linear-gradient(135deg, var(--rose-gold), #9a5b65);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 45px;
+  color: white;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(183, 110, 121, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.scan-btn:active { transform: scale(0.96); }
+
+#scanner-page h2 {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--champagne);
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 2px solid rgba(183, 110, 121, 0.5);
+  background: #000;
+}
+
+#reader { width: 100%; }
+
+.laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--rose-gold);
+  box-shadow: 0 0 15px 2px var(--rose-gold);
+  animation: scanLaser 2.5s infinite ease-in-out;
+  z-index: 10;
+}
+
+@keyframes scanLaser {
+  0%   { top: 5%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 95%; opacity: 0; }
+}
+
+.scan-hint {
+  color: rgba(253, 251, 251, 0.5);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 300;
+}
+
+.back-btn {
+  margin-top: 30px;
+  background: transparent;
+  border: 1px solid rgba(253, 251, 251, 0.3);
+  border-radius: 30px;
+  padding: 12px 35px;
+  color: var(--text-light);
+  font-family: 'Heebo', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#blessing-page { justify-content: center; }
+
+.confetti-burst {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+.blessing-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px 30px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+  animation: cardFadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  text-align: center;
+}
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.blessing-emoji-wrap {
+  display: block;
+  font-size: 60px;
+  margin-bottom: 20px;
+  animation: floatEmoji 3s ease-in-out infinite;
+}
+
+@keyframes floatEmoji {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.gift-tag {
+  display: inline-block;
+  background: rgba(183, 110, 121, 0.2);
+  border: 1px solid var(--rose-gold);
+  border-radius: 20px;
+  padding: 6px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--champagne);
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.blessing-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text-light);
+  font-weight: 300;
+}
+
+.scan-again-btn {
+  position: relative;
+  z-index: 2;
+  margin-top: 30px;
+  background: var(--text-light);
+  color: var(--dark-slate);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 40px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+.scan-again-btn:active { background: var(--champagne); }
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles-bg"></div>
+
+<div id="welcome-page" class="page">
+  <div class="welcome-top">Hadar's Birthday</div>
+  <div class="number-18">18</div>
+  <h1 class="welcome-title">יום הולדת שמח הדר!</h1>
+  <p class="welcome-sub">סרקי את הברקוד שעל המתנה כדי לגלות את הברכה המיוחדת שלך.</p>
+  <div class="divider"></div>
+  <button class="scan-btn" onclick="startScanner()">מצלמה לסריקה</button>
+</div>
+
+<div id="scanner-page" class="page" style="display:none">
+  <h2>סריקת נתונים...</h2>
+  <div class="scanner-container">
+    <div class="laser"></div>
+    <div id="reader"></div>
+  </div>
+  <p class="scan-hint">מרכזי את הברקוד בתוך המסגרת</p>
+  <button class="back-btn" onclick="stopScanner()">ביטול וחזרה</button>
+</div>
+
+<div id="blessing-page" class="page" style="display:none">
+  <div class="confetti-burst" id="confetti-burst"></div>
+  <div class="blessing-card">
+    <span class="blessing-emoji-wrap" id="blessing-emoji">🎁</span>
+    <div class="gift-tag" id="gift-name">מתנה</div>
+    <p class="blessing-text" id="blessing-text"></p>
+  </div>
+  <button class="scan-again-btn" onclick="scanAgain()">סרקי מתנה נוספת</button>
+</div>
+
+<script>
+// Generate background particles
+var particleContainer = document.getElementById('particles-bg');
+for (var i = 0; i < 15; i++) {
+  var p = document.createElement('div');
+  p.className = 'particle';
+  p.style.width = Math.random() * 8 + 3 + 'px';
+  p.style.height = p.style.width;
+  p.style.left = Math.random() * 100 + 'vw';
+  p.style.animationDuration = Math.random() * 10 + 10 + 's';
+  p.style.animationDelay = Math.random() * 5 + 's';
+  particleContainer.appendChild(p);
+}
+
+var COLORS = ['#b76e79', '#f7e7ce', '#ffffff', '#e17055'];
+
+function launchConfetti() {
+  var burst = document.getElementById('confetti-burst');
+  burst.innerHTML = '';
+  for (var i = 0; i < 60; i++) {
+    var el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = (Math.random() * 100) + 'vw';
+    el.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+    var size = (Math.random() * 8 + 4) + 'px';
+    el.style.width = size;
+    el.style.height = size;
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    el.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+    el.style.animationDelay = (Math.random() * 0.2) + 's';
+    burst.appendChild(el);
+  }
+}
+
+var blessings = {
+  "GIFT-01": { emoji: "✨", name: "מראה עם מסגרת עץ",        text: "הנתונים אולי מספרים סיפור, אבל הם לא מראים את התמונה המלאה. המראה הזו לא משקרת: היא רואה ילדה יפה, חכמה ומלאת אור. שתמיד תראי את עצמך כפי שאנחנו רואים אותך." },
+  "GIFT-02": { emoji: "✡️", name: "תגיות עם ישראל חי",       text: "המצפן שלך לדרך החדשה. התזכורת לערכים שגדלת עליהם בבני עקיבא ובבית. עם ישראל חי – ואת לגמרי חלק מהכוח שלו." },
+  "GIFT-03": { emoji: "🌿", name: "עציץ בסלסלת קש",           text: "אחרי כל ההשקעה בביולוגיה, הבאנו לך צמח שלא דורש שום השקיה. שתמשיכי לפרוח, לגדול ולהכות שורשים – ואנחנו כבר נדאג לכל השאר." },
+  "GIFT-04": { emoji: "📓", name: "ערכת ארגון: מחברת ואטבים", text: "לא הכל נכנס לאקסל, ולפעמים צריך משהו קטן שיחזיק הכל יחד. שתמלאי את המחברת בחלומות ששום מסד נתונים לא יכיל, ותמיד תדעי לשמור על הסדר סביבך." },
+  "GIFT-05": { emoji: "🐝", name: "קופסת פח עם דבורים",       text: "הדבורה עובדת קשה, בונה בית לכולם ודואגת לכוורת, בדיוק כמוך כרכזת. תמשיכי להיות חרוצה ומובילה, אבל אל תשכחי לשמור קצת דבש גם לעצמך." },
+  "GIFT-06": { emoji: "🤍", name: "נרתיק לבן עם רוכסן",       text: "לקראת הפרק החדש שמתחיל, יהיו הרבה דברים קטנים שתרצי לשמור קרוב. שיהיה לך תמיד מקום בטוח ומאורגן, גם בתיק וגם בלב." },
+  "GIFT-07": { emoji: "🐿️",name: "בובת סנאי",                 text: "עם כל האחריות של גיל 18 והיותך האחות הבכורה – מותר לך לפעמים פשוט לשחרר את המושכות, לחבק משהו פרוותי, ורק להיות הדר." },
+  "GIFT-08": { emoji: "☁️", name: "כרית לב פרוותית",          text: "בתור מי שתמיד לוקחת אחריות, דואגת לכולם ונותנת את כל הלב – הגיע הזמן שמשהו רך ועוטף יחבק אותך בחזרה. פינה שקטה משלך לנוח בה." },
+  "GIFT-09": { emoji: "🫧", name: "סבון איכותי",               text: "התחלה נקייה ומרעננת לכל יום מחדש. שתקומי בבוקר עם אנרגיות, מלאת ביטחון, ומוכנה לכבוש עוד יעד." },
+  "GIFT-10": { emoji: "🧖‍♀️",name: "מגבת לעטיפת שיער",         text: "אחרי ימים ארוכים של עשייה, לימודים ונתינה, מגיע לך רגע אמיתי של ספא ופינוק. העולם יכול לחכות בחוץ לכמה דקות." },
+  "GIFT-11": { emoji: "💆‍♀️",name: "מסאג'ר ידני",               text: "זה הכלי הרשמי לשחרר את העומס בכתפיים אחרי תקופת הבגרויות. כמקצוען, אני חותם לך שגם הציונים וגם הגב שלך יהיו במצב מצוין!" },
+  "GIFT-12": { emoji: "🤍", name: "מארז טישיו מפלצות",         text: "לדמעות של התרגשות בסיום י\"ב, לצחוק עד דמעות עם חברות, ולפעמים גם סתם כי צריך להוציא. המפלצות פה רק כדי לשמור עלייך." },
+  "GIFT-13": { emoji: "🌙", name: "סט מצעים Good Night",       text: "Good Night. שתי מילים שמגמת מידע ונתונים לא תמיד מאפשרת לממש... מאחלים לך שנת לילה עמוקה, שקטה, ובלי חלומות על שאילתות SQL." },
+  "GIFT-14": { emoji: "🧁", name: "תבנית אפייה ורודה",         text: "בחיים, בניגוד לסטטיסטיקה, המשתנה הכי חשוב הוא אהבה – ואי אפשר לכמת אותו. שתמשיכי לאפות, לשמח, ולהכניס כל כך הרבה מתיקות הביתה." },
+  "GIFT-15": { emoji: "🎨", name: "גרביים מודפסים",            text: "כל מסע משמעותי מתחיל בצעד אחד קטן. שתמיד תצעדי בשמחה, בביטחון ובצבעוניות מיוחדת משלך – גם בימים שהדרך מאתגרת." },
+  "GIFT-16": { emoji: "👣", name: "כפכפי טבע נאות",            text: "לקראת שנת השירות הלאומי, הכי חשוב שיהיה לך בסיס יציב ואיכותי. לצעוד קדימה בנוחות, בגאווה ובסטייל הכי ישראלי שיש." },
+  "GIFT-17": { emoji: "🍫", name: "שוקולד קינדר בואנו",        text: "כי בין למידה למבחן לפעילות מחוץ לבית – תמיד צריך רגע קטן של הפסקה ואושר טהור. כל כך מגיע לך להתפנק!" },
+  "GIFT-18": { emoji: "💎", name: "צמיד ועגילים",              text: "הגענו למתנה ה-18. נוצץ מבחוץ, אבל המשמעות האמיתית היא מבפנים. שתמיד תזכרי שהתכשיט הכי יפה שלך הוא האופי, הנתינה, והאור שאת מקרינה." }
+};
+
+var html5QrcodeScanner = null;
+var isScanning = false;
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(page) { page.style.display = 'none'; });
+  document.getElementById(id).style.display = 'flex';
+}
+
+function startScanner() {
+  showPage('scanner-page');
+  isScanning = false;
+  // ניקוי ה-reader לפני כל סריקה חדשה – מונע תקיעות בסריקה חוזרת
+  document.getElementById('reader').innerHTML = '';
+
+  html5QrcodeScanner = new Html5Qrcode("reader");
+
+  html5QrcodeScanner.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: { width: 250, height: 180 } },
+    function(decodedText) {
+      if (isScanning) return;
+      isScanning = true;
+
+      var code = decodedText.trim();
+
+      html5QrcodeScanner.stop().then(function() {
+        html5QrcodeScanner.clear();
+        setTimeout(function() { showBlessing(code); }, 200);
+      }).catch(function() {
+        setTimeout(function() { showBlessing(code); }, 200);
+      });
+    },
+    function(errorMessage) {
+      // Ignore background scan errors
+    }
+  ).catch(function() {
+    alert("נא לאשר גישה למצלמה כדי לסרוק את המתנות.");
+    showPage('welcome-page');
+  });
+}
+
+function stopScanner() {
+  if (html5QrcodeScanner) {
+    html5QrcodeScanner.stop().then(function() {
+      html5QrcodeScanner.clear();
+      showPage('welcome-page');
+    }).catch(function() {
+      showPage('welcome-page');
+    });
+  } else {
+    showPage('welcome-page');
+  }
+}
+
+function showBlessing(code) {
+  var gift = blessings[code];
+  if (!gift) {
+    alert("הברקוד לא זוהה במערכת. נסי שוב!");
+    isScanning = false;
+    startScanner();
+    return;
+  }
+
+  document.getElementById('blessing-emoji').textContent = gift.emoji;
+  document.getElementById('gift-name').textContent = gift.name;
+  document.getElementById('blessing-text').textContent = gift.text;
+
+  showPage('blessing-page');
+  setTimeout(launchConfetti, 150);
+}
+
+function scanAgain() {
+  startScanner();
+}
+</script>
+</body>
+</html>
