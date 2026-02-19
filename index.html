@@ -422,6 +422,7 @@ function startScanner() {
     { fps: 10, qrbox: { width: 250, height: 180 } },
     (decodedText) => {
       scanner.stop().then(() => {
+        alert("קוד שנסרק: [" + decodedText + "]");
         showBlessing(decodedText.trim());
       });
     }
